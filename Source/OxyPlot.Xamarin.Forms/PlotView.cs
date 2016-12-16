@@ -23,12 +23,12 @@ namespace OxyPlot.Xamarin.Forms
         /// <summary>
         /// Identifies the <see cref="Controller" />  bindable property.
         /// </summary>
-        public static readonly BindableProperty ControllerProperty = BindableProperty.Create<PlotView, PlotController>(p => p.Controller, null);
+        public static readonly BindableProperty ControllerProperty = BindableProperty.Create(nameof(Controller), typeof(PlotController), typeof(PlotView));
 
         /// <summary>
         /// Identifies the <see cref="Model" />  bindable property.
         /// </summary>
-        public static readonly BindableProperty ModelProperty = BindableProperty.Create<PlotView, PlotModel>(p => p.Model, null);
+        public static readonly BindableProperty ModelProperty = BindableProperty.Create(nameof(Model), typeof(PlotModel), typeof(PlotView));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlotView"/> class.
@@ -41,6 +41,10 @@ namespace OxyPlot.Xamarin.Forms
                 var message = "Renderer is not initialized.";
                 switch (Device.OS)
                 {
+                    case TargetPlatform.Windows:
+                        message +=
+                            "\nRemember to add `OxyPlot.Xamarin.Forms.Platform.UWP.PlotViewRenderer.Init();` after `Xamarin.Forms.Forms.Init(e);` in the Universal Windows app project.";
+                        break;
                     case TargetPlatform.WinPhone:
                         message +=
                             "\nRemember to add `OxyPlot.Xamarin.Forms.Platform.WP8.PlotViewRenderer.Init();` after `Xamarin.Forms.Forms.Init();` in the Windows Phone app project.";
